@@ -1,0 +1,19 @@
+query StarWarsCharacters($after: String, $first: Int) {
+  allPeople(
+    after: $after,
+    first: $first) {
+    pageInfo {
+      endCursor
+    }
+    totalCount
+    people {
+      name
+      species{
+        name
+      }
+      homeworld {
+        name
+      }
+    }
+  }
+}
