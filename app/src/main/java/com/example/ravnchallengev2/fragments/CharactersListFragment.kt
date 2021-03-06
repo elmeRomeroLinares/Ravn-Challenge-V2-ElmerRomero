@@ -16,6 +16,7 @@ import com.example.ravnchallengev2.adapters.CharactersRecyclerViewAdapter
 import com.example.ravnchallengev2.databinding.FragmentCharactersListBinding
 import com.example.ravnchallengev2.network.apolloClient
 import com.example.starwarsserver.StarWarsCharactersQuery
+import kotlinx.coroutines.channels.Channel
 
 class CharactersListFragment : Fragment() {
     companion object {
@@ -23,7 +24,6 @@ class CharactersListFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentCharactersListBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,25 +36,47 @@ class CharactersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val characters = mutableListOf<StarWarsCharactersQuery.Person>()
+        val adapter = CharactersRecyclerViewAdapter(characters)
+        binding.charactersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.charactersRecyclerView.adapter = adapter
+
+        //init first load
+        val channel = Channel<Unit>(Channel.CONFLATED)
+        channel.offer(Unit)
+        adapter.onEndOfListReached = {
+            channel.offer(Unit)
+        }
+
         lifecycleScope.launchWhenResumed {
             var afterCursor: String? = null
-            val response = try {
-                apolloClient.query(StarWarsCharactersQuery(
-                after = Input.fromNullable(afterCursor),
-                first = Input.fromNullable(CHARACTERS_PER_LOAD))
-                ).await()
-            } catch (e: ApolloException) {
-                //TODO Implement Error UI Logic
-                Log.d("CharactersList", "Failure", e)
-                null
+            for (item in channel) {
+                val serverResponse = try {
+                    apolloClient.query(StarWarsCharactersQuery(
+                            after = Input.fromNullable(afterCursor),
+                            first = Input.fromNullable(CHARACTERS_PER_LOAD)
+                    )).await()
+                } catch (e: ApolloException) {
+                    // TODO implement error handling
+                    return@launchWhenResumed
+                }
+
+                val newCharacters = serverResponse.data?.allPeople?.people?.filterNotNull()
+                if (newCharacters != null) {
+                    characters.addAll(newCharacters)
+                    adapter.notifyDataSetChanged()
+                }
+
+                afterCursor = serverResponse.data?.allPeople?.pageInfo?.endCursor
+
+                if (characters.size == serverResponse.data?.allPeople?.totalCount) {
+                    adapter.setIsLoaderVisible(false)
+                    break
+                }
             }
 
-            val characters= response?.data?.allPeople?.people?.filterNotNull()
-            if (characters != null && !response.hasErrors()) {
-                val charactersListAdapter = CharactersRecyclerViewAdapter(characters)
-                binding.charactersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-                binding.charactersRecyclerView.adapter = charactersListAdapter
-            }
+            adapter.onEndOfListReached = null
+            channel.close()
         }
     }
 }

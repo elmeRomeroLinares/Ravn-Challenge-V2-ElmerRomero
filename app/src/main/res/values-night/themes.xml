@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="h2_default">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/h2_text_size</item>
+    </style>
+    <style name="p1_low_emphasis">
+        <item name="android:textColor">@color/half_black</item>
+        <item name="android:textSize">@dimen/p1_text_size</item>
+    </style>
 </resources>
