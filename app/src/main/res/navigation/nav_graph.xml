@@ -8,5 +8,18 @@
         android:id="@+id/charactersListFragment"
         android:name="com.example.ravnchallengev2.fragments.CharactersListFragment"
         android:label="fragment_characters_list"
-        tools:layout="@layout/fragment_characters_list" />
+        tools:layout="@layout/fragment_characters_list" >
+        <action
+            android:id="@+id/openCharacterDetails"
+            app:destination="@id/characterDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.example.ravnchallengev2.fragments.CharacterDetailsFragment"
+        android:label="fragment_character_details"
+        tools:layout="@layout/fragment_character_details">
+        <argument
+            android:name="characterId"
+            app:argType="string"/>
+    </fragment>
 </navigation>

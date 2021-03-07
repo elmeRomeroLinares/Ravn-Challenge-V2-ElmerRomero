@@ -3,4 +3,7 @@
     <dimen name="h2_text_size">17sp</dimen>
     <dimen name="p1_text_size">14sp</dimen>
     <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="loading_padding">8dp</dimen>
+    <dimen name="lateral_detail_fragment_padding">16dp</dimen>
+    <dimen name="data_cell_top_bottom_padding">16dp</dimen>
 </resources>

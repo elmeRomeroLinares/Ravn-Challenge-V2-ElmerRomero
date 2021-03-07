@@ -25,4 +25,13 @@
         <item name="android:textColor">@color/ravn_text_light</item>
         <item name="android:textSize">@dimen/h2_text_size</item>
     </style>
+    <style name="fixed_detail_text_view" parent="h2_low_emphasis">
+        <item name="android:paddingTop">@dimen/data_cell_top_bottom_padding</item>
+        <item name="android:paddingBottom">@dimen/data_cell_top_bottom_padding</item>
+    </style>
+    <style name="dynamic_detail_text_view" parent="h2_default">
+        <item name="android:paddingTop">@dimen/data_cell_top_bottom_padding</item>
+        <item name="android:paddingBottom">@dimen/data_cell_top_bottom_padding</item>
+    </style>
+    <style name="dynamic_vehicle_text_view" parent="fixed_detail_text_view"/>
 </resources>

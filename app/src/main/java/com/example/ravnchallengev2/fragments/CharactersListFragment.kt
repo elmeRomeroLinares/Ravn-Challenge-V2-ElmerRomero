@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
@@ -77,6 +78,14 @@ class CharactersListFragment : Fragment() {
 
             adapter.onEndOfListReached = null
             channel.close()
+        }
+
+        adapter.onItemClicked = {clickedCharacter ->
+            findNavController().navigate(
+                CharactersListFragmentDirections.openCharacterDetails(
+                    characterId = clickedCharacter.id
+                )
+            )
         }
     }
 }

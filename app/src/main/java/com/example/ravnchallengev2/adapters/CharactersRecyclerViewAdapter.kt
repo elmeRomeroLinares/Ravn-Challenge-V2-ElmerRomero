@@ -25,6 +25,8 @@ class CharactersRecyclerViewAdapter(
 
     var onEndOfListReached: (() -> Unit)? = null
 
+    var onItemClicked: ((StarWarsCharactersQuery.Person) -> Unit)? = null
+
     class NormalViewHolder(
             val binding: CharactersListItemBinding
             ) : RecyclerView.ViewHolder(binding.root)
@@ -66,7 +68,7 @@ class CharactersRecyclerViewAdapter(
 
         when (holder) {
             is NormalViewHolder -> {
-                val character = charactersList.get(position)
+                val character = charactersList[position]
                 holder.binding.characterNameListItemTextView.text = character.name
                 if (character.species == null) {
                     holder.binding.characterOriginListItemTextView.text = String.format(
@@ -79,6 +81,10 @@ class CharactersRecyclerViewAdapter(
                             character.species.name,
                             character.homeworld?.name
                     )
+                }
+
+                holder.binding.root.setOnClickListener{
+                    onItemClicked?.invoke(character)
                 }
 
             }
