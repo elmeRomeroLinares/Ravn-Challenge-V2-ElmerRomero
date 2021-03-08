@@ -16,7 +16,8 @@ Here are some screenshots of the working app:
 ![CharacterDetailView](https://user-images.githubusercontent.com/52327494/110287723-9670a800-7fac-11eb-9cba-ae263846539e.jpg)
 
 
-Assumtions: 
+Assumtions:
+To trigger the notice cel displaying the error message, airplane mode has been activated before tapping a character from the list. Also, to display the message in the fist screen airplane mode has been activated before opening the app, and also when returning from a character detail screen.    
 "People of Star Wars" text on toolbar changes to "People", when all tha characters available in allPeople method in the server are loaded.
 This app doesn't persist data, causing a new server request every time a fragment is left behind by the navigation of the user. 
 After a failure in receiving the list of characters has occurred, a buttom or swipe down event should be implemented to trigger a new request to the server.
