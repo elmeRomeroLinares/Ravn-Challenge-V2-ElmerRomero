@@ -3,7 +3,7 @@ Ravn code challenge uses Star Wars GraphQL Api to display characters profiles.
 
 Hi! To install Ravn V2 app in your Android device, please follow the steps below.  
 From Android Studio, in an Android device with developer options enable. 
-1.	Clone repository to your local machine from this link. For this process use ‘git clone’ on a command prompt. 
+1.	Clone repository to your local machine from this link. For this process use ‘git clone’ to a newly created directory ussing a command prompt. 
 2.  After Android Studio ends building the proyect, run the app in an Android mobile device or Android virtual device.  
  	 
 Project Description: Ravn Challenge V2 is an Android App that allows you to know more about Star Wars characters. You can get more information about your favorite characters by tapping on a character in the list shown in the fist screen. If an error occurs while loading the list of characters, you would see an error message indicating that something went wrong. You would see the list updating five characters at the time. If you tap a character in the list, you would see a new screen showing you general attributes of the character and also the vehicles they used in the movie. If something goes wrong, you would see the corresponding error message.  If you tap the upper arrow, you would be redirected to the list of characters.      
