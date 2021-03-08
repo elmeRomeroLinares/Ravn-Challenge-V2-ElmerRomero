@@ -13,6 +13,8 @@ Here are some screenshots of the working app:
 ![FailedToLoadCharacterAttributes](https://user-images.githubusercontent.com/52327494/110285704-43492600-7fa9-11eb-96a4-732b49e95ab9.jpg)
 ![ListOfCharactersLoadedFromServer](https://user-images.githubusercontent.com/52327494/110285709-4512e980-7fa9-11eb-86ac-a5f535fe9551.jpg)
 ![LoadingViewOnCharacterList](https://user-images.githubusercontent.com/52327494/110285714-46dcad00-7fa9-11eb-9ee6-7d67cffa5fb8.jpg)
+![CharacterDetailView](https://user-images.githubusercontent.com/52327494/110287723-9670a800-7fac-11eb-9cba-ae263846539e.jpg)
+
 
 Assumtions: 
 "People of Star Wars" text on toolbar changes to "People", when all tha characters available in allPeople method in the server are loaded.
