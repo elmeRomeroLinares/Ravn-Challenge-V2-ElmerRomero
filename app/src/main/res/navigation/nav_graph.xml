@@ -21,5 +21,9 @@
         <argument
             android:name="characterId"
             app:argType="string"/>
+        <argument
+            android:name="characterName"
+            app:argType="string"
+            app:nullable="true"/>
     </fragment>
 </navigation>

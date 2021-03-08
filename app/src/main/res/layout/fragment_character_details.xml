@@ -4,25 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.CharacterDetailsFragment"
-    android:paddingStart="@dimen/lateral_detail_fragment_padding"
-    android:paddingEnd="@dimen/lateral_detail_fragment_padding">
+    tools:context=".fragments.CharacterDetailsFragment">
+
+    <include
+        android:id="@+id/ravn_challenge_toolbar_details_fragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        layout="@layout/ravn_challange_toolbar"/>
 
     <include
         android:id="@+id/loading_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ravn_challenge_toolbar_details_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         layout="@layout/loading_list_item"
         android:visibility="visible"/>
 
+    <include
+        android:id="@+id/notice_cell_details_fragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ravn_challenge_toolbar_details_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        layout="@layout/failed_load_data"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/character_detail_container"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ravn_challenge_toolbar_details_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="@dimen/lateral_detail_fragment_padding"
+        android:paddingEnd="@dimen/lateral_detail_fragment_padding">
 
         <TextView
             android:id="@+id/general_information_text_view"

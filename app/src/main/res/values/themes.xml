@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.RavnChallengeV2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.RavnChallengeV2" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/ravn_black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/ravn_text_light</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/ravn_text_light</item>
         <item name="colorSecondaryVariant">@color/ravn_text_light</item>
@@ -34,4 +34,14 @@
         <item name="android:paddingBottom">@dimen/data_cell_top_bottom_padding</item>
     </style>
     <style name="dynamic_vehicle_text_view" parent="fixed_detail_text_view"/>
+    <style name="toolbar_style">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/h2_text_size</item>
+    </style>
+    <style name="notice_cell">
+        <item name="android:padding">@dimen/list_item_padding</item>
+        <item name="android:textSize">@dimen/h2_text_size</item>
+        <item name="android:textColor">@color/ravn_text_emphasis</item>
+    </style>
 </resources>

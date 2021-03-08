@@ -1,11 +1,13 @@
 package com.example.ravnchallengev2.fragments
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +39,8 @@ class CharactersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setToolbarText(getString(R.string.people_of_star_wars))
+
         val characters = mutableListOf<StarWarsCharactersQuery.Person>()
         val adapter = CharactersRecyclerViewAdapter(characters)
         binding.charactersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -49,7 +53,12 @@ class CharactersListFragment : Fragment() {
             channel.offer(Unit)
         }
 
+        adapter.setIsLoaderVisible(true)
+
         lifecycleScope.launchWhenResumed {
+            if (!binding.charactersRecyclerView.isVisible) {
+                binding.charactersRecyclerView.visibility = View.VISIBLE
+            }
             var afterCursor: String? = null
             for (item in channel) {
                 val serverResponse = try {
@@ -58,7 +67,9 @@ class CharactersListFragment : Fragment() {
                             first = Input.fromNullable(CHARACTERS_PER_LOAD)
                     )).await()
                 } catch (e: ApolloException) {
-                    // TODO implement error handling
+                    binding.noticeCellListFragment.root.visibility = View.VISIBLE
+                    binding.charactersRecyclerView.visibility = View.GONE
+                    setToolbarText(getString(R.string.people))
                     return@launchWhenResumed
                 }
 
@@ -76,6 +87,7 @@ class CharactersListFragment : Fragment() {
                 }
             }
 
+            setToolbarText(getString(R.string.people))
             adapter.onEndOfListReached = null
             channel.close()
         }
@@ -83,9 +95,13 @@ class CharactersListFragment : Fragment() {
         adapter.onItemClicked = {clickedCharacter ->
             findNavController().navigate(
                 CharactersListFragmentDirections.openCharacterDetails(
-                    characterId = clickedCharacter.id
+                    characterId = clickedCharacter.id, characterName = clickedCharacter.name
                 )
             )
         }
+    }
+
+    private fun setToolbarText(toolbarText: String) {
+        binding.ravnChallengeToolbarListFragment.toolbarTextView.text = toolbarText
     }
 }

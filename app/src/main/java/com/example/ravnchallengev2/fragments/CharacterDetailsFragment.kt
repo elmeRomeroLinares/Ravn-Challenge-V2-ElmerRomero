@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.api.Input
@@ -34,6 +36,20 @@ class CharacterDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(args.characterName != null){
+            binding.ravnChallengeToolbarDetailsFragment.toolbarTextView.text = args.characterName
+        } else {
+            binding.ravnChallengeToolbarDetailsFragment.toolbarTextView.text = getString(R.string.unknown)
+        }
+
+        val toolbar: androidx.appcompat.widget.Toolbar =
+                binding.ravnChallengeToolbarDetailsFragment.ravnChallengeToolbar
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+
+        toolbar.setNavigationOnClickListener{
+            findNavController().navigateUp()
+        }
+
         lifecycleScope.launchWhenResumed {
             val characterDetailContainer = binding.characterDetailContainer
             characterDetailContainer.visibility = View.GONE
@@ -44,13 +60,15 @@ class CharacterDetailsFragment : Fragment() {
                         CharacterDetailsQuery(id = Input.fromNullable(args.characterId))
                 ).await()
             } catch (e:ApolloException) {
-                // TODO Handel error
+                binding.loadingLayout.root.visibility = View.GONE
+                binding.noticeCellDetailsFragment.root.visibility = View.VISIBLE
                 return@launchWhenResumed
             }
 
             val characterAttributes = response.data?.person
             if (characterAttributes == null || response.hasErrors()){
-                // TODO handel error views
+                binding.loadingLayout.root.visibility = View.GONE
+                binding.noticeCellDetailsFragment.root.visibility = View.VISIBLE
                 return@launchWhenResumed
             }
 

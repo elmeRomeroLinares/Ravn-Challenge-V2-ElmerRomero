@@ -12,4 +12,7 @@
     <string name="vehicles">Vehicles</string>
     <string name="unknown">Unknown</string>
     <string name="no_vehicle">No Vehicle</string>
+    <string name="people_of_star_wars">People of Star Wars</string>
+    <string name="people">People</string>
+    <string name="failed_to_load_data">Failed to Load Data</string>
 </resources>
